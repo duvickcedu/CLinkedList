@@ -30,12 +30,14 @@ int main() {
     while (strcmp(choice, "exit") != 0) {
         char letter;
         if (strcmp(choice, "insert") == 0){
+            printf("enter a char:");
             scanf("%s", &letter);
             insert(letter);
         } else if (strcmp(choice, "print") == 0){
             print();
         } else if (strcmp(choice, "remove") == 0){
             removeLL();
+            printf("Linked list is now empty\n");
         } else {
             printf("Error: unknown request '%s'\n", choice);
         }
@@ -77,6 +79,8 @@ void insert (char letter){
         struct Node *prevNode = NULL;
         struct Node *currNode = head;
 
+        //while stop when currNodes letter is bigger than letter therefore,
+        //letter should come before it.
         while (currNode != NULL){
             if (currNode->letter > letter) {
                 break;
@@ -114,5 +118,4 @@ int size (){
 void removeLL(){
     head = NULL;
     free(head);
-    printf("Linked list is now empty\n");
 }
