@@ -16,10 +16,11 @@ struct Node *tail = NULL;
 
 int main() {
     insert('z');
-    insert('x');
     insert('a');
-    insert('d');
-    insert('c');
+    insert('b');
+    insert('a');
+    insert('z');
+
     print();
 
     return 0;
@@ -38,26 +39,30 @@ void print (){
 
 void insert (char letter){
     struct Node *node = (struct Node*)malloc(sizeof(struct Node));
+    node->letter = letter;
     if (head == NULL){
         node->next = tail;
-        node->letter = letter;
         head = node;
     } else {
         struct Node *prevNode = head;
         struct Node *currNode = head;
 
         while (currNode != NULL){
-            if (currNode->letter > letter){
-                prevNode = currNode;
-                currNode = currNode->next;
-            } else {
+             if (currNode->letter > letter) {
                 break;
             }
+            prevNode = currNode;
+            currNode = currNode->next;
         }
 
-        prevNode->next = node;
-        node->next = currNode;
-        node->letter = letter;
+        if (head == currNode){
+            node->next = head;
+            head = node;
+        } else {
+            prevNode->next = node;
+            node->next = currNode;
+        }
+
 
     }
 }
