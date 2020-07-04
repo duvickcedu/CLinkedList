@@ -10,18 +10,31 @@ struct Node {
 //prototypes
 void print ();
 void insert (char letter);
+int size ();
 
 struct Node *head = NULL;
 struct Node *tail = NULL;
 
 int main() {
-    insert('z');
-    insert('a');
-    insert('b');
-    insert('a');
-    insert('z');
+    printf("Would you like to insert, print, remove, or exit?\n>");
+    char choice[10];
+    scanf("%s", choice);
 
-    print();
+    while (strcmp(choice, "exit") != 0) {
+        char letter = NULL;
+        if (strcmp(choice, "insert") == 0){
+            scanf("%s", &letter);
+            insert(letter);
+        } else if (strcmp(choice, "print") == 0){
+            print();
+        } else if (strcmp(choice, "remove") == 0){
+            printf("Remove has been chosen; to be implemented.\n");
+        } else {
+            printf("Error; not a valid choice.\n");
+        }
+        printf(">");
+        scanf("%s", choice);
+    }
 
     return 0;
 }
@@ -44,7 +57,7 @@ void insert (char letter){
         node->next = tail;
         head = node;
     } else {
-        struct Node *prevNode = head;
+        struct Node *prevNode = NULL;
         struct Node *currNode = head;
 
         while (currNode != NULL){
@@ -62,7 +75,15 @@ void insert (char letter){
             prevNode->next = node;
             node->next = currNode;
         }
-
-
     }
+}
+
+int size (){
+    int size = 0;
+    struct Node *currNode = head;
+    while (currNode != NULL){
+        ++size;
+        currNode = currNode->next;
+    }
+    return size;
 }
