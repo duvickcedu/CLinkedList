@@ -11,6 +11,7 @@ struct Node {
 void print ();
 void insert (char letter);
 int size ();
+void removeLL();
 
 struct Node *head = NULL;
 struct Node *tail = NULL;
@@ -21,19 +22,27 @@ int main() {
     scanf("%s", choice);
 
     while (strcmp(choice, "exit") != 0) {
-        char letter = NULL;
+        char letter;
         if (strcmp(choice, "insert") == 0){
             scanf("%s", &letter);
             insert(letter);
         } else if (strcmp(choice, "print") == 0){
             print();
         } else if (strcmp(choice, "remove") == 0){
-            printf("Remove has been chosen; to be implemented.\n");
+            removeLL();
         } else {
-            printf("Error; not a valid choice.\n");
+            printf("Error: unknown request '%s'\n", choice);
         }
         printf(">");
         scanf("%s", choice);
+
+        if ((strcmp(choice, "exit") == 0) && (size() != 0)){
+            while (strcmp(choice, "exit") == 0 ){
+                printf("Linked List must be empty first\n");
+                printf(">");
+                scanf("%s", choice);
+            }
+        }
     }
 
     return 0;
@@ -86,4 +95,10 @@ int size (){
         currNode = currNode->next;
     }
     return size;
+}
+
+void removeLL(){
+    free(head);
+    print("%d", size());
+    printf("Linked list is now empty\n");
 }
