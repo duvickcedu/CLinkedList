@@ -8,40 +8,56 @@ struct Node {
 };
 
 //prototypes
-void print (struct Node *head);
-void insert (struct Node *head, char letter);
+void print ();
+void insert (char letter);
+
+struct Node *head = NULL;
+struct Node *tail = NULL;
 
 int main() {
-    struct Node *head = NULL;
-
-    insert(head, 'a');
-
-    printf("%c", head->letter);
-
-
-
-
+    insert('z');
+    insert('x');
+    insert('a');
+    insert('d');
+    insert('c');
+    print();
 
     return 0;
 }
 
-//prints all of the nodes in order
-void print (struct Node *head){
-    struct Node currNode = *head->next;
-    while (currNode.next != NULL){
-        printf("%c ", currNode.letter);
-        currNode = *currNode.next;
+//prints all nodes. actually works.
+void print (){
+    struct Node *currNode = head;
+    while (currNode != NULL){
+        printf("%c ", currNode->letter);
+        currNode = currNode->next;
     }
 
     printf("\n");
 }
 
-void insert (struct Node *head, char letter){
+void insert (char letter){
+    struct Node *node = (struct Node*)malloc(sizeof(struct Node));
     if (head == NULL){
-        struct Node *node =(struct Node*)malloc(sizeof(struct Node));
-        node->next = NULL;
-        node->letter = &letter;
+        node->next = tail;
+        node->letter = letter;
         head = node;
-    }
+    } else {
+        struct Node *prevNode = head;
+        struct Node *currNode = head;
 
+        while (currNode != NULL){
+            if (currNode->letter > letter){
+                prevNode = currNode;
+                currNode = currNode->next;
+            } else {
+                break;
+            }
+        }
+
+        prevNode->next = node;
+        node->next = currNode;
+        node->letter = letter;
+
+    }
 }
