@@ -70,7 +70,7 @@ void insert (char letter){
         struct Node *currNode = head;
 
         while (currNode != NULL){
-             if (currNode->letter > letter) {
+            if (currNode->letter > letter) {
                 break;
             }
             prevNode = currNode;
@@ -98,7 +98,16 @@ int size (){
 }
 
 void removeLL(){
-    free(head);
-    print("%d", size());
+    int i;
+    struct Node *currNode = head;
+    struct Node *nextNode = NULL;
+    for (i = 0; i < size() - 1; ++i) {
+        nextNode->next = currNode->next;
+        currNode->next = NULL;
+        currNode->letter = NULL;
+        free(currNode);
+        currNode = nextNode;
+    }
+    printf("%d", size());
     printf("Linked list is now empty\n");
 }
